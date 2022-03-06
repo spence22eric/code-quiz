@@ -15,15 +15,21 @@
 
 <body>
     <header>
-        <a href="#"><span>View High Scores</span></a>
+        <div class="inline">
+            <a href="#"><span>View High Scores</span></a>
+        </div>
+        <div class="inline timer shift-right" id="timer">
+            <h3>Time Left: <span id="time-left"></span></h3>        
+        </div>
     </header>
+
     <section id="quiz-rules" class="info-box">
         <div>
             <p>Rules</p>
         </div>
         <ul>
             <li>After pressing the 'Start Quiz' button, the 1 minute timer will start.</li>
-            <li>If the wrong answer is chosen, 5 seconds will be deducted from the timer</li>
+            <li>If the wrong answer is chosen, 10 seconds will be deducted from the timer</li>
             <li>After the quiz, make sure to enter your initials to save your score</li>
             <li>Press the 'Start Quiz' button when you're ready to begin!</li>
         </ul>

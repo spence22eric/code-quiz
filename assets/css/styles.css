@@ -5,3 +5,16 @@
 .answers-list {
     list-style-type: none;
 }
+
+.shift-right {
+    float: right;
+}
+
+.inline {
+    display: inline-block;
+}
+
+header {
+    padding: 10px;
+}
+

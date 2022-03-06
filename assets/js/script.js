@@ -1,3 +1,9 @@
+let startTime = 0
+const timerSeconds = 60
+let timerOffset = 0
+let currentTimer = timerSeconds
+let intervalId = 0
+
 let myQuestions = [
     {
         question: "Commonly used data types do NOT include:_______",
@@ -56,6 +62,7 @@ function answerQuestion(answer, correctAnswer) {
     }
     else {
         $("#result").html("Wrong!");
+        timerOffset += 10;
     }
     
     myQuestions.shift();
@@ -64,12 +71,16 @@ function answerQuestion(answer, correctAnswer) {
 
 function startQuiz() {
     nextQuestion();
+    startTimer();
 }
 
 function endQuiz() {
-    $("#question").addClass("hidden")
-    $("#initials").removeClass("hidden")
+    $("#question").addClass("hidden");
+    $("#initials").removeClass("hidden");
     alert("the quiz has ended.");
+    clearInterval(intervalId);
+
+    $("#final-score").html(currentTimer);
 }
 
 function nextQuestion() {
@@ -81,8 +92,7 @@ function nextQuestion() {
         return;
     }
 
-    let question = myQuestions[0];
-    console.log(question);
+    let question = myQuestions[0];    
     $("#question-title").text(question.question);
     $("#answer-a").text(question.answers.a);
     $("#answer-b").text(question.answers.b);
@@ -107,6 +117,25 @@ function nextQuestion() {
     });
 
 
+}
+
+function startTimer() {
+    startTime = Date.now()
+    console.log(startTime);
+
+    intervalId = setInterval(function() {
+        let now = Date.now();
+        let delta = Math.floor((now - startTime) / 1000);
+        currentTimer = timerSeconds - (delta + timerOffset);  
+
+        if (currentTimer > 0) {
+            $("#time-left").html(currentTimer);
+        }
+        else {
+            $("#time-left").html("Time is up!");
+        }
+
+    }, 500);
 }
 
 $("#start-btn").click(startQuiz);
