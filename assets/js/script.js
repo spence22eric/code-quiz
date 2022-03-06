@@ -48,8 +48,63 @@ let myQuestions = [
     }
 ]
 
-function startQuiz() {
-    $("#quiz-rules").addClass("hidden");
+function answerQuestion(answer, correctAnswer) {
+    
+    if (answer === correctAnswer) {
+        alert("correct answer");
+    }
+    else {
+        alert("Borgar");
+    }
+    console.log(answer);
+    myQuestions.shift();
+    nextQuestion();
 }
+
+function startQuiz() {
+    nextQuestion();
+}
+
+function endQuiz() {
+    alert("the quiz has ended.");
+}
+
+function nextQuestion() {
+    $("#quiz-rules").addClass("hidden");
+    $("#question").removeClass("hidden");
+
+    if (myQuestions.length === 0) {
+        endQuiz();
+        return;
+    }
+
+    let question = myQuestions[0];
+    console.log(question);
+    $("#question-title").text(question.question);
+    $("#answer-a").text(question.answers.a);
+    $("#answer-b").text(question.answers.b);
+    $("#answer-c").text(question.answers.c);
+    $("#answer-d").text(question.answers.d);
+    
+
+    $("#answer-a").off("click").click(function() {
+        answerQuestion("a", question.correctAnswer);
+    });
+
+    $("#answer-b").off("click").click(function() {
+        answerQuestion("b", question.correctAnswer);
+    });
+
+    $("#answer-c").off("click").click(function() {
+        answerQuestion("c", question.correctAnswer);
+    });
+
+    $("#answer-d").off("click").click(function() {
+        answerQuestion("d", question.correctAnswer);
+    });
+
+
+}
+
 
 $("#start-btn").click(startQuiz);

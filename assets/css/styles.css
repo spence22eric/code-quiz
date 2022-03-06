@@ -1,3 +1,7 @@
 .hidden {
     display: none;
 }
+
+.answers-list {
+    list-style-type: none;
+}
