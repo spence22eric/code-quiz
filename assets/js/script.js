@@ -48,13 +48,8 @@ let myQuestions = [
     }
 ]
 
-// function showQuestions(questions, quizContainer) {
+function startQuiz() {
+    $("#quiz-rules").addClass("hidden");
+}
 
-//     let output = [];
-//     let answers;
-
-//     for (let i=0; i < questions.length; i++) {
-
-//         answers = [];
-//     }
-// }
+$("#start-btn").click(startQuiz);
