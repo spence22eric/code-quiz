@@ -49,14 +49,15 @@ let myQuestions = [
 ]
 
 function answerQuestion(answer, correctAnswer) {
+    $("#result").removeClass("hidden");
     
     if (answer === correctAnswer) {
-        alert("correct answer");
+        $("#result").html("Correct!");
     }
     else {
-        alert("Borgar");
+        $("#result").html("Wrong!");
     }
-    console.log(answer);
+    
     myQuestions.shift();
     nextQuestion();
 }
@@ -66,6 +67,8 @@ function startQuiz() {
 }
 
 function endQuiz() {
+    $("#question").addClass("hidden")
+    $("#initials").removeClass("hidden")
     alert("the quiz has ended.");
 }
 
@@ -105,6 +108,5 @@ function nextQuestion() {
 
 
 }
-
 
 $("#start-btn").click(startQuiz);
