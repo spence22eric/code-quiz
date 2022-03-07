@@ -97,6 +97,10 @@ function saveHighScore(currentScore) {
         localStorage.setItem("high score", currentScore);
     }
 
+    let highScore = localStorage.getItem("high score");
+    console.log(highScore);
+    $("#high-score").html(highScore);
+
 }
 
 function endQuiz() {
@@ -117,7 +121,8 @@ function endQuiz() {
     }
 
     $("#final-score").html("Your current score is: " + currentTimer);
-    
+
+    saveHighScore(currentTimer);    
 }
 
 function nextQuestion() {
@@ -175,13 +180,17 @@ function startTimer() {
 
 $("#start-btn").click(startQuiz);
 
-function submitScore() {
-    saveHighScore(currentTimer);
+// function submitScore(highScore) {
 
-    let initials = $("#initials").val();    
-    let highScore = localStorage.getItem("initials", initials);
-    console.log(highScore);
-    $("#high-score", "#initials").html(highScore);
-}
+//     let initials = JSON.parse($("#initials").val());
+//     localStorage.setItem(initials, highScore)
 
-$("#submit-btn").click(submitScore);
+//     // saveHighScore(currentTimer);
+
+//     // let initials = $("#initials").val();    
+//     // let highScore = localStorage.getItem("high score");
+//     // console.log(highScore);
+//     // $("#high-score").html(highScore);    
+// };
+
+// $("#submit-btn").on("click", submitScore());
