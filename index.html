@@ -16,7 +16,7 @@
 <body>
     <header>
         <div class="inline">
-            <h3>Current high score: <span id="high-score">N/A</span></h3>
+            <h3>Current high score: <span id="high-score"></span></h3>
         </div>
         <div class="inline timer shift-right" id="timer">
             <h3>Time Left: <span id="time-left"></span></h3>        
@@ -49,6 +49,9 @@
     <div id="initials" class="hidden">
         <h2>All done!</h2>
         <span id="final-score"></span>
+        <br />
+        <input id="initials" type="text" placeholder="Enter your initials"></input>
+        <button id="submit" class="submit">Submit</button>
     </div>
 </body>
 <script src="./assets/js/script.js"></script>

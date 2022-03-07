@@ -91,6 +91,7 @@ function saveHighScore(currentScore) {
     if (currentHighScore) {
         let highScore = Math.max(currentHighScore, currentScore);
         localStorage.setItem("high score", highScore);
+        localStorage.setItem("initials", $("#initials").val());
     }
     else {
         localStorage.setItem("high score", currentScore);
@@ -115,13 +116,8 @@ function endQuiz() {
         $("#time-left").html("Time is up!");
     }
 
-    $("#final-score").html(currentTimer);
-
-    saveHighScore(currentTimer);
-
-    let highScore = localStorage.getItem("high score");
-    console.log(highScore);
-    $("#high-score").html(highScore);
+    $("#final-score").html("Your current score is: " + currentTimer);
+    
 }
 
 function nextQuestion() {
@@ -178,3 +174,14 @@ function startTimer() {
 }
 
 $("#start-btn").click(startQuiz);
+
+function submitScore() {
+    saveHighScore(currentTimer);
+
+    let initials = $("#initials").val();    
+    let highScore = localStorage.getItem("initials", initials);
+    console.log(highScore);
+    $("#high-score", "#initials").html(highScore);
+}
+
+$("#submit-btn").click(submitScore);
