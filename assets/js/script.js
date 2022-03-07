@@ -54,9 +54,20 @@ let myQuestions = [
     }
 ]
 
+$(document).ready(function() {
+    let currentHighScore = localStorage.getItem("high score");
+
+    if (currentHighScore) {
+        $("#high-score").html(currentHighScore);
+    }
+    else {
+        $("#high-score").html("N/A");
+    }
+})
+
 function answerQuestion(answer, correctAnswer) {
     $("#result").removeClass("hidden");
-    
+
     if (answer === correctAnswer) {
         $("#result").html("Correct!");
     }
@@ -64,14 +75,27 @@ function answerQuestion(answer, correctAnswer) {
         $("#result").html("Wrong!");
         timerOffset += 10;
     }
-    
+
     myQuestions.shift();
     nextQuestion();
 }
 
 function startQuiz() {
     nextQuestion();
-    startTimer();
+    startTimer();    
+}
+
+function saveHighScore(currentScore) {
+    let currentHighScore = localStorage.getItem("high score")
+
+    if (currentHighScore) {
+        let highScore = Math.max(currentHighScore, currentScore);
+        localStorage.setItem("high score", highScore);
+    }
+    else {
+        localStorage.setItem("high score", currentScore);
+    }
+
 }
 
 function endQuiz() {
@@ -80,7 +104,24 @@ function endQuiz() {
     alert("the quiz has ended.");
     clearInterval(intervalId);
 
+    let now = Date.now();
+    let delta = Math.floor((now - startTime) / 1000);
+    currentTimer = timerSeconds - (delta + timerOffset);
+
+    if (currentTimer > 0) {
+        $("#time-left").html(currentTimer);
+    }
+    else {
+        $("#time-left").html("Time is up!");
+    }
+
     $("#final-score").html(currentTimer);
+
+    saveHighScore(currentTimer);
+
+    let highScore = localStorage.getItem("high score");
+    console.log(highScore);
+    $("#high-score").html(highScore);
 }
 
 function nextQuestion() {
@@ -92,41 +133,39 @@ function nextQuestion() {
         return;
     }
 
-    let question = myQuestions[0];    
+    let question = myQuestions[0];
     $("#question-title").text(question.question);
     $("#answer-a").text(question.answers.a);
     $("#answer-b").text(question.answers.b);
     $("#answer-c").text(question.answers.c);
     $("#answer-d").text(question.answers.d);
-    
 
-    $("#answer-a").off("click").click(function() {
+
+    $("#answer-a").off("click").click(function () {
         answerQuestion("a", question.correctAnswer);
     });
 
-    $("#answer-b").off("click").click(function() {
+    $("#answer-b").off("click").click(function () {
         answerQuestion("b", question.correctAnswer);
     });
 
-    $("#answer-c").off("click").click(function() {
+    $("#answer-c").off("click").click(function () {
         answerQuestion("c", question.correctAnswer);
     });
 
-    $("#answer-d").off("click").click(function() {
+    $("#answer-d").off("click").click(function () {
         answerQuestion("d", question.correctAnswer);
     });
-
-
 }
 
 function startTimer() {
     startTime = Date.now()
     console.log(startTime);
 
-    intervalId = setInterval(function() {
+    intervalId = setInterval(function () {
         let now = Date.now();
         let delta = Math.floor((now - startTime) / 1000);
-        currentTimer = timerSeconds - (delta + timerOffset);  
+        currentTimer = timerSeconds - (delta + timerOffset);
 
         if (currentTimer > 0) {
             $("#time-left").html(currentTimer);
